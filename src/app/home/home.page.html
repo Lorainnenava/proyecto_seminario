@@ -1,20 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+<ionic-content class="MainContainer">
+  <ion-grid>
+    <ion-row style="gap: 16px">
+      <ion-col size="12">
+        <ion-textarea
+          label="Correo"
+          labelPlacement="floating"
+          fill="outline"
+        ></ion-textarea>
+      </ion-col>
+      <ion-col size="12">
+        <ion-textarea
+          label="Contraseña"
+          labelPlacement="floating"
+          fill="outline"
+        ></ion-textarea>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="block" shape="round">Iniciar sesión</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ionic-content>
