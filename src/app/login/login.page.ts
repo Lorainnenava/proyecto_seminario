@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormControl,
   FormBuilder,
+  FormControl,
   FormGroup,
-  Validator,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../service/auth.service';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { ErrorMessageService } from 'src/utils/service/error-message.service';
+import { AuthService } from '../service/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,38 +18,13 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
-  ErrorMessage: any;
-
-  emailErrors = {
-    email: [
-      {
-        type: 'required',
-        message: 'Correo requerido',
-      },
-      {
-        type: 'email',
-        message: 'Correo invalido',
-      },
-    ],
-  };
-  passwordErrors = {
-    password: [
-      {
-        type: 'required',
-        message: 'Contraseña requerida',
-      },
-      {
-        type: 'minLength',
-        message: 'La contraseña debe tener mínimo 6 caracteres',
-      },
-    ],
-  };
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private nav: NavController,
-    private storage: Storage
+    private storage: Storage,
+    private errorMessageService: ErrorMessageService
   ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl(
@@ -65,18 +40,23 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
+  getFirstErrorMessage(controlName: string): string {
+    return this.errorMessageService.getFirstErrorMessage(
+      this.loginForm,
+      controlName
+    );
+  }
+
   onSubmit(credentials: any) {
     this.authService
-      .loginUser(credentials)
+      .login(credentials)
       .then((res) => {
         console.log(res);
         this.storage.set('isUserLoggedIn', true);
         this.nav.navigateForward('/home');
-        this.ErrorMessage = '';
       })
       .catch((err) => {
         console.log(err);
-        this.ErrorMessage = err;
       });
   }
 }

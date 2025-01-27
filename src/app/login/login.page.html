@@ -1,7 +1,19 @@
+<ion-header>
+  <ion-toolbar style="text-align: center">
+    <ion-title>Inicio de Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ionic-content class="MainContainer">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <ion-container class="img-container">
+      <img
+        src="/assets/images/login.png"
+        style="width: 100%; height: 100%; object-fit: cover"
+      />
+    </ion-container>
     <ion-grid>
-      <ion-row style="gap: 16px">
+      <ion-row style="gap: 10px; padding: 20px">
         <ion-col size="12" class="input-container">
           <ion-input
             type="text"
@@ -10,14 +22,13 @@
             formControlName="email"
             labelPlacement="floating"
           ></ion-input>
-          <ng-container *ngFor="let error of emailErrors.email">
-            <ion-label
-              color="danger"
-              style="font-size: 12px"
-              *ngIf="(loginForm.get('email')?.hasError(error.type) && loginForm.get('email')?.dirty)"
-              >{{ error.message }}</ion-label
-            >
-          </ng-container>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(loginForm.get('email')?.hasError && loginForm.get('email')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('email') }}</ng-container>
+          </ion-label>
         </ion-col>
         <ion-col size="12" class="input-container">
           <ion-input
@@ -28,28 +39,36 @@
             formControlName="password"
           >
           </ion-input>
-          <ng-container *ngFor="let error of passwordErrors.password">
-            <ion-label
-              color="danger"
-              style="font-size: 12px"
-              *ngIf="(loginForm.get('password')?.hasError(error.type) && loginForm.get('password')?.dirty)"
-              >{{ error.message }}</ion-label
-            >
-          </ng-container>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(loginForm.get('password')?.hasError && loginForm.get('password')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('password') }}</ng-container>
+          </ion-label>
         </ion-col>
-      </ion-row>
-      <ion-row>
         <ion-col size="12">
-          <ion-button
-            type="submit"
-            expand="block"
-            shape="round"
-            [disabled]="!loginForm.valid"
+          <ion-button type="submit" expand="block" style="--background: #608bc1"
             >Iniciar sesión</ion-button
           >
         </ion-col>
+        <ion-col size="12">
+          <ion-container
+            style="
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 5px;
+            "
+          >
+            <ion-text style="font-size: 14px">No tienes cuenta aun?</ion-text>
+            <a href="#" style="font-size: 14px; text-decoration: none"
+              >Regístrate</a
+            ></ion-container
+          ></ion-col
+        >
       </ion-row>
     </ion-grid>
   </form>
-  <p>{{ErrorMessage}}</p>
 </ionic-content>

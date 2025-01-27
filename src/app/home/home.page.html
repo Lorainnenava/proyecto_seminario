@@ -1,25 +1,25 @@
-<ionic-content class="MainContainer">
-  <ion-grid>
-    <ion-row style="gap: 16px">
-      <ion-col size="12">
-        <ion-textarea
-          label="Correo"
-          labelPlacement="floating"
-          fill="outline"
-        ></ion-textarea>
-      </ion-col>
-      <ion-col size="12">
-        <ion-textarea
-          label="Contraseña"
-          labelPlacement="floating"
-          fill="outline"
-        ></ion-textarea>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button expand="block" shape="round">Iniciar sesión</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ionic-content>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let post of posts">
+      <img src="{{post.image}}" class="image-post" />
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-avatar class="user-avatar">
+            <img
+              [src]="post.user.image ? post.user.image : 'assets/images/default-avatar.jpeg'"
+            />
+          </ion-avatar>
+          {{post.user.name}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content> {{post.description}} </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

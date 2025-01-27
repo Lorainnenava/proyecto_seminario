@@ -1,76 +1,78 @@
 swiper-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 swiper-slide {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: white;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
 }
 
-.container-text{
-    width: 100%;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container-text {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h2{
-    color: #002b61;
-    font-weight: 600;
-    font-size: 24px;
-    margin:0;
-    padding:0;
-    text-align: center;
+h2 {
+  color: #002b61;
+  font-weight: 600;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
-.container-last-text{
-    flex: 1;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: flex; flex-direction: column; gap: 20px
+.container-last-text {
+  flex: 1;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-h6{
-    color: #002b61;
-    font-weight: 600;
-    margin:0;
-    padding:0;
+h6 {
+  color: #002b61;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
 }
 
-.container-image{
-    width: 100%;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container-image {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slide-image {
-    max-width: 90%; 
-    max-height: 90%;
+  max-width: 90%;
+  max-height: 70%;
 }
 
 .container-skip {
-    width: 100%;
-    height: 5px;
-    display: flex;
-    justify-content: flex-end;
+  width: 100%;
+  height: 5px;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.button-empezar{
-    background-color: #608bc1; 
-    color: white; 
-    width: 90%
+.button-empezar {
+  background-color: #608bc1;
+  color: white;
+  width: 90%;
 }
