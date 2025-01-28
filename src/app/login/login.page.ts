@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-import { ErrorMessageService } from 'src/utils/service/error-message.service';
+import { ErrorMessageService } from 'src/utils/service/errorMessage/error-message.service';
 import { AuthService } from '../service/auth/auth.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
       ),
       password: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.minLength(4)])
+        Validators.compose([Validators.required, Validators.minLength(6)])
       ),
     });
   }
@@ -50,10 +50,10 @@ export class LoginPage implements OnInit {
   onSubmit(credentials: any) {
     this.authService
       .login(credentials)
-      .then((res) => {
-        console.log(res);
+      .then((res: any) => {
+        this.storage.set('user', res.user);
         this.storage.set('isUserLoggedIn', true);
-        this.nav.navigateForward('/home');
+        this.nav.navigateForward('/menu/home');
       })
       .catch((err) => {
         console.log(err);

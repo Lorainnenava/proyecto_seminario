@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorMessageService } from 'src/utils/service/error-message.service';
-import { AuthService } from '../service/auth/auth.service';
 import { NavController } from '@ionic/angular';
+import { ErrorMessageService } from 'src/utils/service/errorMessage/error-message.service';
+import { AuthService } from '../service/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -21,13 +21,13 @@ export class RegisterPage implements OnInit {
   ) {
     this.registerForm = this.form.group({
       email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.minLength(4)]],
-      lastName: ['', [Validators.required, Validators.minLength(4)]],
-      userName: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       passwordConfirmation: [
         '',
-        [Validators.required, Validators.minLength(4)],
+        [Validators.required, Validators.minLength(6)],
       ],
     });
   }

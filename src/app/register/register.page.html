@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ionic-content class="MainContainer">
+<ionic-content class="MainContainer" fullscreen>
   <form
     [formGroup]="registerForm"
     (ngSubmit)="registerUser(registerForm.value)"
@@ -30,33 +30,49 @@
         <ion-col size="12" class="input-container">
           <ion-input
             type="text"
-            label="Nombre de usuario"
+            label="Nombre"
             fill="outline"
-            formControlName="username"
+            formControlName="name"
             labelPlacement="floating"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
             color="danger"
-            *ngIf="(registerForm.get('username')?.hasError && registerForm.get('username')?.dirty)"
+            *ngIf="(registerForm.get('name')?.hasError && registerForm.get('name')?.dirty)"
           >
-            <ng-container>{{ getFirstErrorMessage('username') }}</ng-container>
+            <ng-container>{{ getFirstErrorMessage('name') }}</ng-container>
           </ion-label>
         </ion-col>
         <ion-col size="12" class="input-container">
           <ion-input
             type="text"
-            label="Nombre completo"
+            label="Apellido"
             fill="outline"
-            formControlName="fullName"
+            formControlName="lastName"
             labelPlacement="floating"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
             color="danger"
-            *ngIf="(registerForm.get('fullName')?.hasError && registerForm.get('fullName')?.dirty)"
+            *ngIf="(registerForm.get('lastName')?.hasError && registerForm.get('lastName')?.dirty)"
           >
-            <ng-container>{{ getFirstErrorMessage('fullName') }}</ng-container>
+            <ng-container>{{ getFirstErrorMessage('lastName') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            type="text"
+            label="Nombre de usuario"
+            fill="outline"
+            formControlName="userName"
+            labelPlacement="floating"
+          ></ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('userName')?.hasError && registerForm.get('userName')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('userName') }}</ng-container>
           </ion-label>
         </ion-col>
         <ion-col size="12" class="input-container">
@@ -77,25 +93,32 @@
           </ion-label>
         </ion-col>
         <ion-col size="12" class="input-container">
-          <ion-textarea
-            label="Biografía"
+          <ion-input
             fill="outline"
-            formControlName="biography"
+            type="password"
+            label="Confirmación de contraseña"
             labelPlacement="floating"
-            [counter]="true"
-            maxlength="50"
-          ></ion-textarea>
+            formControlName="passwordConfirmation"
+          >
+          </ion-input>
           <ion-label
             style="font-size: 12px"
             color="danger"
-            *ngIf="(registerForm.get('biography')?.hasError && registerForm.get('biography')?.dirty)"
+            *ngIf="(registerForm.get('passwordConfirmation')?.hasError && registerForm.get('passwordConfirmation')?.dirty)"
           >
-            <ng-container>{{ getFirstErrorMessage('biography') }}</ng-container>
+            <ng-container
+              >{{ getFirstErrorMessage('passwordConfirmation') }}</ng-container
+            >
           </ion-label>
         </ion-col>
+
         <ion-col size="12">
-          <ion-button type="submit" expand="block" style="--background: #608bc1"
-            >Iniciar sesión</ion-button
+          <ion-button
+            type="submit"
+            expand="block"
+            style="--background: #608bc1"
+            [disabled]="!registerForm.valid"
+            >Registrarse</ion-button
           >
         </ion-col>
       </ion-row>

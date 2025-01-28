@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { introGuard } from './guards/intro.guard';
 import { loginGuard } from './guards/login.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       import('./add-post-modal/add-post-modal.module').then(
         (m) => m.AddPostModalPageModule
       ),
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 

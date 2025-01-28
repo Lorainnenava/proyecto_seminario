@@ -17,6 +17,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../account/account.module').then((m) => m.AccountPageModule),
       },
+      {
+        path: 'search-users',
+        loadChildren: () =>
+          import('../search-user/search-user.module').then(
+            (m) => m.SearchUserPageModule
+          ),
+      },
     ],
   },
 ];

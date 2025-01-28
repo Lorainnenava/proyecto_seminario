@@ -6,9 +6,19 @@
 
 <ion-content>
   <form [formGroup]="addPostForm" (ngSubmit)="addPost(addPostForm.value)">
-    <div (click)="uploadPhone()">
+    <div
+      (click)="uploadPhone()"
+      style="
+        width: 100%;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
       <img
-        [src]="post_image ? post_image : 'assets/images/place_holder.jpeg'"
+        [src]="post_image ? post_image : 'assets/images/postModal.jpg'"
+        style="width: 60%; height: 80%"
       />
       <p *ngIf="!post_image">Haz click para subir una imagen</p>
     </div>
@@ -23,7 +33,12 @@
     </ion-item>
 
     <ion-footer>
-      <ion-button type="submit" [disabled]="!addPostForm.valid" expand="full">
+      <ion-button
+        type="submit"
+        [disabled]="!addPostForm.valid"
+        expand="full"
+        style="--background: #608bc1"
+      >
         Publicar
       </ion-button>
     </ion-footer>
