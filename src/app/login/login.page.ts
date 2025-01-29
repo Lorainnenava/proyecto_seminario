@@ -19,6 +19,11 @@ import { AuthService } from '../service/auth/auth.service';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
+  public state = {
+    disabled: false,
+    isLoading: false,
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -48,6 +53,8 @@ export class LoginPage implements OnInit {
   }
 
   onSubmit(credentials: any) {
+    this.state.disabled = true;
+    this.state.isLoading = true;
     this.authService
       .login(credentials)
       .then((res: any) => {
@@ -56,6 +63,8 @@ export class LoginPage implements OnInit {
         this.nav.navigateForward('/menu/home');
       })
       .catch((err) => {
+        this.state.disabled = false;
+        this.state.isLoading = false;
         console.log(err);
       });
   }

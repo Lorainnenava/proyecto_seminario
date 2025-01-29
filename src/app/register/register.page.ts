@@ -13,6 +13,11 @@ import { AuthService } from '../service/auth/auth.service';
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
 
+  public state = {
+    disabled: false,
+    isLoading: false,
+  };
+
   constructor(
     private form: FormBuilder,
     private navCtrl: NavController,
@@ -42,6 +47,8 @@ export class RegisterPage implements OnInit {
   }
 
   registerUser(registerData: any) {
+    this.state.disabled = true;
+    this.state.isLoading = true;
     this.authService
       .register(registerData)
       .then((res) => {
@@ -49,6 +56,8 @@ export class RegisterPage implements OnInit {
         this.navCtrl.navigateForward('/login');
       })
       .catch((err) => {
+        this.state.disabled = false;
+        this.state.isLoading = false;
         console.log(err);
       });
   }

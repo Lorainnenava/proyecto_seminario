@@ -5,7 +5,19 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="loading" *ngIf="posts.length === 0">
+  <img src="../../assets/images/loading.png" />
+  <ion-text
+    style="
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+    >Cargando posts....</ion-text
+  >
+</ion-content>
+<ion-content *ngIf="posts.length > 0">
   <ion-list>
     <ion-card *ngFor="let post of posts">
       <img src="{{post.image}}" class="image-post" />
