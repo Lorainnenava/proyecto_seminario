@@ -8,11 +8,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InputComponent } from 'src/utils/components/input/input.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, InputComponent, NotFoundComponent],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

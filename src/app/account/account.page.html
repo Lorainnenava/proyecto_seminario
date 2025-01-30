@@ -3,17 +3,44 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <div style="width: 60%">
+      <ion-title style="text-align: end; font-size: 14px"
+        >{{user_data.username}}</ion-title
+      >
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-title>{{user_data.name}} {{user_data.last_name}}</ion-title>
-  <ion-avatar (click)="takePhoto()">
-    <img
-      [src]="user_data.image ? user_data.image : 'assets/images/default-avatar.jpeg'"
-    />
-  </ion-avatar>
-  <p>usuario: {{user_data.username}}</p>
-  <p>Seguidores: {{user_data.followed_users.length}}</p>
-  <p>Siguiendo: {{user_data.following_users.length}}</p>
+  <div class="custom-content">
+    <div class="content-info">
+      <ion-avatar (click)="presentPhotoOptions()">
+        <div class="content-image">
+          <img
+            [src]="user_data.image ? user_data.image : 'assets/images/avatar.png'"
+            style="width: 100%; height: 100%"
+          />
+        </div>
+      </ion-avatar>
+      <ion-title style="font-size: 16px"
+        >{{user_data.name}} {{user_data.last_name}}</ion-title
+      >
+    </div>
+    <div>
+      <ion-chip color="secondary">Posts: 0</ion-chip>
+      <ion-chip color="secondary"
+        >Seguidores: {{user_data.followers.length}}</ion-chip
+      >
+      <ion-chip color="secondary"
+        >Siguiendo: {{user_data.followees.length}}</ion-chip
+      >
+    </div>
+    <ion-button
+      expand="block"
+      style="--border-color: #608bc1; --color: #608bc1"
+      fill="outline"
+      ><ion-icon slot="start" name="person-outline"></ion-icon>Editar
+      perfil</ion-button
+    >
+  </div>
 </ion-content>

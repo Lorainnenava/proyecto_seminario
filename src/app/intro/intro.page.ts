@@ -11,7 +11,9 @@ import { Storage } from '@ionic/storage-angular';
 export class IntroPage implements OnInit {
   constructor(private router: Router, private storage: Storage) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.storage.create();
+  }
 
   finish() {
     console.log('finish');

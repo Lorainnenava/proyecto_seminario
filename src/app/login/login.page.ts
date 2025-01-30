@@ -22,6 +22,8 @@ export class LoginPage implements OnInit {
   public state = {
     disabled: false,
     isLoading: false,
+    errorMessage: '',
+    isError: false,
   };
 
   constructor(
@@ -63,9 +65,14 @@ export class LoginPage implements OnInit {
         this.nav.navigateForward('/menu/home');
       })
       .catch((err) => {
+        this.state.errorMessage = err;
+        this.state.isError = true;
         this.state.disabled = false;
         this.state.isLoading = false;
         console.log(err);
+        setTimeout(() => {
+          this.state.isError = false;
+        }, 2000);
       });
   }
 }

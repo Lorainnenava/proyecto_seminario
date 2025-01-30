@@ -5,7 +5,8 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="loading" *ngIf="posts.length === 0">
+
+<ion-content class="loading" *ngIf="isLoading">
   <img src="../../assets/images/loading.png" />
   <ion-text
     style="
@@ -17,7 +18,7 @@
     >Cargando posts....</ion-text
   >
 </ion-content>
-<ion-content *ngIf="posts.length > 0">
+<ion-content *ngIf="!isLoading">
   <ion-list>
     <ion-card *ngFor="let post of posts">
       <img src="{{post.image}}" class="image-post" />

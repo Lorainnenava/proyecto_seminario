@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage-angular';
 export class SearchUserPage implements OnInit {
   users: any[] = [];
   page: number = 1;
+  current_user: any;
   limit: number = 10;
   query: string = '';
   hasHoreUsers: boolean = true;
@@ -22,8 +23,9 @@ export class SearchUserPage implements OnInit {
   }
 
   async loadUsers(event?: any) {
-    const currentUser = await this.storage.get('user');
-    const followingUsers = currentUser.following_users || [];
+    this.current_user = await this.storage.get('user');
+    const followingUsers = this.current_user.followees || [];
+    console.log('followingUsers', followingUsers);
     this.userService
       .listUsers(this.page, this.limit, this.query)
       .then((data: any) => {
@@ -34,8 +36,8 @@ export class SearchUserPage implements OnInit {
               (followedUser: any) => followedUser.id == user.id
             ),
           }));
-
-          this.users = [...this.users, ...data.users];
+          this.users = [...this.users, ...updateUsers];
+          console.log('users', this.users);
           this.page++;
         } else {
           this.hasHoreUsers = false;
@@ -58,8 +60,26 @@ export class SearchUserPage implements OnInit {
     this.loadUsers();
   }
 
-  follow(user_id: any) {
-    console.log('follow', user_id);
+  follow(followee_id: any) {
+    console.log('follow', followee_id);
+    const user_id = this.current_user.id;
+    this.userService
+      .followUser(user_id, followee_id)
+      .then((data: any) => {
+        console.log(data);
+        this.users = this.users.map((user: any) => {
+          if (user.id == followee_id) {
+            return {
+              ...user,
+              is_following: true,
+            };
+          }
+          return user;
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   unfollow(user_id: any) {

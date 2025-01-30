@@ -27,6 +27,7 @@
             fill="outline"
             formControlName="email"
             labelPlacement="floating"
+            [disabled]="state.disabled || state.isLoading"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
@@ -43,6 +44,7 @@
             label="Password"
             labelPlacement="floating"
             formControlName="password"
+            [disabled]="state.disabled || state.isLoading"
           >
           </ion-input>
           <ion-label
@@ -75,6 +77,12 @@
           ></ion-col
         >
       </ion-row>
+      <ion-toast
+        [isOpen]="state.isError"
+        [message]="state.errorMessage"
+        [duration]="2000"
+        (onDidDismiss)="state.isError = false"
+      ></ion-toast>
     </ion-grid>
   </form>
 </ionic-content>
