@@ -29,6 +29,14 @@ export class HomePage {
     });
   }
 
+  toggleTextDisplay(postId: any) {
+    this.posts.filter((post: any) => {
+      if (post.id == postId) {
+        post.showCompleteDescription = !post.showCompleteDescription;
+      }
+    });
+  }
+
   async addPost() {
     console.log('Add Post');
     const modal = await this.modalController.create({
@@ -44,6 +52,7 @@ export class HomePage {
     this.postService.getPosts(this.page, this.limit).then(
       (data: any) => {
         if (data.length > 0) {
+          console.log(data, 'data');
           this.posts = [...this.posts, ...data];
           this.page++;
         } else {

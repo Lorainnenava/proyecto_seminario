@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AlertController, ModalController } from '@ionic/angular';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { Storage } from '@ionic/storage-angular';
+import { PostService } from '../service/post/post.service';
 import { UserService } from '../service/user/user.service';
-import { AlertController } from '@ionic/angular';
+import { UpdateUserPage } from '../update-user/update-user.page';
 
 defineCustomElements(window);
 @Component({
@@ -13,23 +14,35 @@ defineCustomElements(window);
   standalone: false,
 })
 export class AccountPage implements OnInit {
+  posts: any[] = [];
+  page: number = 1;
+  limit: number = 10;
+  hasMore: boolean = true;
+
   user_data: any = {
     name: '',
     email: '',
     image: '',
+    username: '',
     followees: [],
     followers: [],
   };
 
   constructor(
-    private userService: UserService,
     private storage: Storage,
-    public alertController: AlertController
+    private userService: UserService,
+    private postService: PostService,
+    public alertController: AlertController,
+    private modalController: ModalController
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.getUser();
+    this.loadPosts();
+  }
+
+  async getUser() {
     let user: any = await this.storage.get('user');
-    console.log(user, 'usuario');
     this.userService
       .getUser(user.id)
       .then((data: any) => {
@@ -42,55 +55,46 @@ export class AccountPage implements OnInit {
       });
   }
 
-  async takePhoto(source: CameraSource) {
-    console.log('Take Photo');
-    const capturedPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.DataUrl,
-      source: source,
-      quality: 100,
+  toggleTextDisplay(postId: any) {
+    this.posts.filter((post: any) => {
+      if (post.id == postId) {
+        post.showCompleteDescription = !post.showCompleteDescription;
+      }
     });
-    console.log(capturedPhoto.dataUrl);
-    this.user_data.image = capturedPhoto.dataUrl;
-    this.update();
   }
 
-  async update() {
-    this.userService
-      .updateUser(this.user_data)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
+  async editProfile() {
+    console.log('update profile');
+    const modal = await this.modalController.create({
+      component: UpdateUserPage,
+      componentProps: {},
+    });
+    return await modal.present();
+  }
+
+  async loadPosts(event?: any) {
+    console.log('Load Posts');
+    let user: any = await this.storage.get('user');
+    this.postService.getPosts(this.page, this.limit).then(
+      (data: any) => {
+        if (data.length > 0) {
+          // const filterData= data.filter(x=> x.user.name === user.name)
+          const filterData = data.filter((x: any) => x.user.id === user.id);
+          this.posts = [...this.posts, ...filterData];
+          this.page++;
+        } else {
+          this.hasMore = false;
+        }
+        if (event) {
+          event.target.complete();
+        }
+      },
+      (error) => {
         console.log(error);
-      });
-  }
-
-  async presentPhotoOptions() {
-    const alert = await this.alertController.create({
-      header: 'Seleccione una opción',
-      message: '¿De dónde desea obtener la imagen?',
-      buttons: [
-        {
-          text: 'Cámara',
-          handler: () => {
-            this.takePhoto(CameraSource.Camera);
-          },
-        },
-        {
-          text: 'Galería',
-          handler: () => {
-            this.takePhoto(CameraSource.Photos);
-          },
-        },
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancelado');
-          },
-        },
-      ],
-    });
-    await alert.present();
+        if (event) {
+          event.target.complete();
+        }
+      }
+    );
   }
 }

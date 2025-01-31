@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { ErrorMessageService } from 'src/utils/service/errorMessage/error-message.service';
 import { AuthService } from '../service/auth/auth.service';
 
@@ -24,13 +24,14 @@ export class RegisterPage implements OnInit {
     private form: FormBuilder,
     private navCtrl: NavController,
     private authService: AuthService,
+    private modalController: ModalController,
     private errorMessageService: ErrorMessageService
   ) {
     this.registerForm = this.form.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      userName: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordConfirmation: [
         '',
@@ -40,6 +41,10 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {}
+
+  cancel() {
+    this.modalController.dismiss();
+  }
 
   getFirstErrorMessage(controlName: string): string {
     return this.errorMessageService.getFirstErrorMessage(

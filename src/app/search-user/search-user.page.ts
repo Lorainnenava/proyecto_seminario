@@ -82,15 +82,33 @@ export class SearchUserPage implements OnInit {
       });
   }
 
-  unfollow(user_id: any) {
-    console.log('unfollow', user_id);
+  unfollow(followee_id: any) {
+    const user_id = this.current_user.id;
+    console.log(followee_id, 'followee_id');
+    this.userService
+      .unfollowUser(user_id, followee_id)
+      .then((data: any) => {
+        console.log(data);
+        this.users = this.users.map((user: any) => {
+          if (user.id == followee_id) {
+            return {
+              ...user,
+              isFollowing: false,
+            };
+          }
+          return user;
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   toggleFollow(user: any) {
     if (user.is_following) {
-      this.unfollow(user.id);
-    } else {
       this.follow(user.id);
+    } else {
+      this.unfollow(user.id);
     }
   }
 }

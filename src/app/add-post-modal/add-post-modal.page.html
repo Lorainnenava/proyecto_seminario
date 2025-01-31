@@ -1,46 +1,69 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Crear Nuevo Post</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="cancel()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Agregar Post</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form [formGroup]="addPostForm" (ngSubmit)="addPost(addPostForm.value)">
-    <div
-      (click)="uploadPhone()"
-      style="
-        width: 100%;
-        height: 300px;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      "
-    >
-      <img
-        [src]="post_image ? post_image : 'assets/images/postModal.jpg'"
-        style="width: 60%; height: 80%"
-      />
-      <p *ngIf="!post_image">Haz click para subir una imagen</p>
-    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <div
+            (click)="uploadPhone()"
+            style="
+              width: 100%;
+              height: 300px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+            "
+          >
+            <img
+              [src]="post_image ? post_image : 'assets/images/postModal.jpg'"
+              style="width: 60%; height: 80%"
+            />
+            <ion-chip *ngIf="!post_image"
+              >Haz click para subir una imagen</ion-chip
+            >
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-textarea
+              label="Descripción del post"
+              labelPlacement="floating"
+              placeholder="Cuenta lo que estas pensando"
+              formControlName="description"
+            ></ion-textarea>
+            <ion-label
+              style="font-size: 12px"
+              color="danger"
+              *ngIf="(addPostForm.get('description')?.hasError && addPostForm.get('description')?.dirty)"
+            >
+              <ng-container
+                >{{ getFirstErrorMessage('description') }}</ng-container
+              >
+            </ion-label>
+          </ion-item>
+        </ion-col>
 
-    <ion-item>
-      <ion-textarea
-        label="Descripción del post"
-        labelPlacement="floating"
-        placeholder="Cuenta lo que estas pensando"
-        formControlName="description"
-      ></ion-textarea>
-    </ion-item>
-
-    <ion-footer>
-      <ion-button
-        type="submit"
-        [disabled]="!addPostForm.valid"
-        expand="full"
-        style="--background: #608bc1"
-      >
-        Publicar
-      </ion-button>
-    </ion-footer>
+        <ion-footer>
+          <ion-button
+            type="submit"
+            [disabled]="!addPostForm.valid"
+            expand="full"
+            style="--background: #608bc1"
+          >
+            Publicar
+          </ion-button>
+        </ion-footer>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>

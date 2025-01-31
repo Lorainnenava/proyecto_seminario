@@ -2,28 +2,20 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+      <ion-text style="font-size: 16px">Menu</ion-text>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="loading" *ngIf="isLoading">
+<ion-content class="loading" *ngIf="posts.length === 0">
   <img src="../../assets/images/loading.png" />
-  <ion-text
-    style="
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    "
-    >Cargando posts....</ion-text
-  >
+  <ion-text class="container-info">Cargando posts....</ion-text>
 </ion-content>
-<ion-content *ngIf="!isLoading">
+<ion-content *ngIf="posts.length > 0">
   <ion-list>
     <ion-card *ngFor="let post of posts">
-      <img src="{{post.image}}" class="image-post" />
       <ion-card-header>
-        <ion-card-subtitle>
+        <ion-card-subtitle class="container">
           <ion-avatar class="user-avatar">
             <img
               [src]="post.user.image ? post.user.image : 'assets/images/avatar.png'"
@@ -32,7 +24,20 @@
           {{post.user.name}}
         </ion-card-subtitle>
       </ion-card-header>
-      <ion-card-content> {{post.description}} </ion-card-content>
+      <img src="{{post.image}}" class="image-post" />
+      <ion-card-content>
+        <p
+          [ngClass]="(!post.showCompleteDescription) ? 'single-line-text' : 'full-text'"
+        >
+          {{post.description}}
+        </p>
+        <p
+          *ngIf="post.description.length > 50"
+          (click)="toggleTextDisplay(post.id)"
+        >
+          Ver {{(!post.showCompleteDescription) ? 'más' : 'menos'}}
+        </p>
+      </ion-card-content>
     </ion-card>
   </ion-list>
 

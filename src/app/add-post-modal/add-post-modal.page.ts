@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { Storage } from '@ionic/storage-angular';
 import { PostService } from '../service/post/post.service';
+import { ErrorMessageService } from 'src/utils/service/errorMessage/error-message.service';
 
 defineCustomElements(window);
 @Component({
@@ -23,18 +24,33 @@ export class AddPostModalPage implements OnInit {
   addPostForm: FormGroup;
 
   constructor(
+    private storage: Storage,
     private formBuilder: FormBuilder,
     private postService: PostService,
-    private storage: Storage,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private errorMessageService: ErrorMessageService
   ) {
     this.addPostForm = this.formBuilder.group({
-      description: new FormControl('', Validators.required),
-      image: new FormControl('', Validators.required),
+      description: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      image: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
   ngOnInit() {}
+
+  getFirstErrorMessage(controlName: string): string {
+    return this.errorMessageService.getFirstErrorMessage(
+      this.addPostForm,
+      controlName
+    );
+  }
+
+  cancel() {
+    this.modalController.dismiss();
+  }
 
   async uploadPhone() {
     console.log('Upload Photo');

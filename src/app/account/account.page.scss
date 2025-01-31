@@ -1,8 +1,9 @@
 .custom-content {
   gap: 5px;
-  padding: 15px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .content-info {
@@ -11,11 +12,54 @@
   gap: 25px;
 }
 
-.content-image {
+.no-posts {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-image2 {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100px;
   height: 100px;
   border-radius: 50%;
+}
+
+ion-header {
+  ion-toolbar {
+    --background: #608bc1;
+    border: none;
+
+    ion-buttons {
+      color: var(--ion-color-light);
+    }
+  }
+  ion-title {
+    color: white;
+  }
+}
+
+.container-info {
+  font-size: 16px;
+  display: flex;
+}
+
+.fixed-info {
+  width: 100%;
+  background: white;
+  height: 250px;
+}
+
+.scrollable-content {
+  padding-bottom: 10px;
+  overflow-y: auto;
+  max-height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

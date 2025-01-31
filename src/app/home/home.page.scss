@@ -1,11 +1,7 @@
 .user-avatar {
   width: 30px;
   height: 30px;
-}
-
-.image-post {
-  margin: 0 auto;
-  display: block;
+  border-radius: 50%;
 }
 
 ion-fab {
@@ -24,7 +20,49 @@ ion-fab {
   justify-content: center;
 }
 
-img {
-  width: 90%;
-  height: 80%;
+.image-post {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+ion-header {
+  ion-toolbar {
+    --background: #608bc1;
+    border: none;
+
+    ion-buttons {
+      color: var(--ion-color-light);
+    }
+  }
+  ion-title {
+    color: white;
+  }
+}
+
+ion-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+ion-card:hover {
+  transform: translateY(-5px);
+}
+
+.container-info {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  gap: 16px;
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  justify-content: flex-start;
 }

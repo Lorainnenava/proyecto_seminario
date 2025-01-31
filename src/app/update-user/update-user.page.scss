@@ -1,0 +1,53 @@
+.MainContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  color: black;
+  overflow-y: auto;
+  padding-bottom: 40px;
+  flex-direction: column;
+  background-color: white;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+ion-label {
+  margin-top: 4px;
+}
+
+ion-item {
+  padding: 0;
+  margin: 0;
+}
+
+.content-image {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-avatar {
+  width: 50%;
+  height: 100%;
+}
+
+ion-header {
+  ion-toolbar {
+    --background: #608bc1;
+    border: none;
+
+    ion-buttons {
+      color: var(--ion-color-light);
+    }
+  }
+  ion-title {
+    color: white;
+  }
+}

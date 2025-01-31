@@ -12,35 +12,101 @@
 </ion-header>
 
 <ion-content>
-  <div class="custom-content">
-    <div class="content-info">
-      <ion-avatar (click)="presentPhotoOptions()">
-        <div class="content-image">
-          <img
-            [src]="user_data.image ? user_data.image : 'assets/images/avatar.png'"
-            style="width: 100%; height: 100%"
-          />
-        </div>
-      </ion-avatar>
-      <ion-title style="font-size: 16px"
-        >{{user_data.name}} {{user_data.last_name}}</ion-title
-      >
+  <ion-grid class="custom-content">
+    <!-- Sección fija -->
+    <div class="fixed-info">
+      <ion-row>
+        <ion-col size="12" class="content-info">
+          <ion-avatar>
+            <div class="content-image2">
+              <img
+                [src]="user_data.image ? user_data.image : 'assets/images/avatar.png'"
+                style="width: 100%; height: 100%"
+              />
+            </div>
+          </ion-avatar>
+          <ion-title style="font-size: 16px"
+            >{{user_data.name}} {{user_data.last_name}}</ion-title
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row size="12">
+        <ion-chip color="secondary">Posts: 0</ion-chip>
+        <ion-chip color="secondary"
+          >Seguidores: {{user_data.followers.length}}</ion-chip
+        >
+        <ion-chip color="secondary"
+          >Siguiendo: {{user_data.followees.length}}</ion-chip
+        >
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button
+            expand="block"
+            style="--border-color: #608bc1; --color: #608bc1"
+            fill="outline"
+            (click)="editProfile()"
+            ><ion-icon slot="start" name="person-outline"></ion-icon>Editar
+            perfil</ion-button
+          >
+        </ion-col>
+        <!-- Mis publicaciones -->
+        <ion-col size="12">
+          <ion-item-divider>
+            <ion-label>Mis publicaciones</ion-label>
+          </ion-item-divider></ion-col
+        >
+      </ion-row>
     </div>
-    <div>
-      <ion-chip color="secondary">Posts: 0</ion-chip>
-      <ion-chip color="secondary"
-        >Seguidores: {{user_data.followers.length}}</ion-chip
-      >
-      <ion-chip color="secondary"
-        >Siguiendo: {{user_data.followees.length}}</ion-chip
-      >
+
+    <!-- Sección con scroll (solo publicaciones) -->
+    <div class="scrollable-content">
+      <ion-col size="12" class="no-posts" *ngIf="posts.length === 0">
+        <ion-text style="font-size: 16px">No hay posts aun</ion-text>
+      </ion-col>
+
+      <ion-col size="12" *ngIf="posts.length > 0">
+        <ion-list>
+          <ion-card *ngFor="let post of posts">
+            <ion-card-header>
+              <ion-card-subtitle class="container-info">
+                <ion-avatar class="user-avatar">
+                  <img
+                    [src]="post.user.image ? post.user.image : 'assets/images/avatar.png'"
+                  />
+                </ion-avatar>
+                {{post.user.name}}
+              </ion-card-subtitle>
+            </ion-card-header>
+            <img src="{{post.image}}" class="image-post" />
+            <ion-card-content>
+              <p
+                [ngClass]="(!post.showCompleteDescription) ? 'single-line-text' : 'full-text'"
+              >
+                {{post.description}}
+              </p>
+              <p
+                *ngIf="post.description.length > 50"
+                (click)="toggleTextDisplay(post.id)"
+              >
+                Ver {{(!post.showCompleteDescription) ? 'más' : 'menos'}}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+
+        <ion-infinite-scroll
+          threshold="100px"
+          (ionInfinite)="loadPosts($event)"
+          *ngIf="hasMore"
+        >
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Cargando más publicaciones..."
+          >
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-col>
     </div>
-    <ion-button
-      expand="block"
-      style="--border-color: #608bc1; --color: #608bc1"
-      fill="outline"
-      ><ion-icon slot="start" name="person-outline"></ion-icon>Editar
-      perfil</ion-button
-    >
-  </div>
+  </ion-grid>
 </ion-content>
