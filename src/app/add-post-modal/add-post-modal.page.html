@@ -14,55 +14,36 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <div
-            (click)="uploadPhone()"
-            style="
+          <div (click)="uploadPhone()" style="
               width: 100%;
               height: 300px;
               display: flex;
               align-items: center;
               flex-direction: column;
-            "
-          >
-            <img
-              [src]="post_image ? post_image : 'assets/images/postModal.jpg'"
-              style="width: 60%; height: 80%"
-            />
-            <ion-chip *ngIf="!post_image"
-              >Haz click para subir una imagen</ion-chip
-            >
+            ">
+            <img [src]="post_image ? post_image : 'assets/images/postModal.jpg'" style="width: 60%; height: 80%" />
+            <ion-chip *ngIf="!post_image">Haz click para subir una imagen</ion-chip>
           </div>
         </ion-col>
         <ion-col size="12">
           <ion-item>
-            <ion-textarea
-              label="Descripción del post"
-              labelPlacement="floating"
-              placeholder="Cuenta lo que estas pensando"
-              formControlName="description"
-            ></ion-textarea>
-            <ion-label
-              style="font-size: 12px"
-              color="danger"
-              *ngIf="(addPostForm.get('description')?.hasError && addPostForm.get('description')?.dirty)"
-            >
-              <ng-container
-                >{{ getFirstErrorMessage('description') }}</ng-container
-              >
+            <ion-textarea label="Descripción del post" labelPlacement="floating"
+              placeholder="Cuenta lo que estas pensando" formControlName="description"></ion-textarea>
+            <ion-label style="font-size: 12px" color="danger"
+              *ngIf="(addPostForm.get('description')?.hasError && addPostForm.get('description')?.dirty)">
+              <ng-container>{{ getFirstErrorMessage('description') }}</ng-container>
             </ion-label>
           </ion-item>
         </ion-col>
 
         <ion-footer>
-          <ion-button
-            type="submit"
-            [disabled]="!addPostForm.valid"
-            expand="full"
-            style="--background: #608bc1"
-          >
+          <ion-button type="submit" [disabled]="!addPostForm.valid" expand="full" style="--background: #608bc1">
             Publicar
           </ion-button>
         </ion-footer>
+
+        <ion-toast color="danger" [isOpen]="state.isError" [message]="state.errorMessage" [duration]="2000"
+          (onDidDismiss)="state.isError = false"></ion-toast>
       </ion-row>
     </ion-grid>
   </form>

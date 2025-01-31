@@ -1,26 +1,26 @@
 <ion-content>
-  <ion-tabs
-    style="
+  <ion-footer>
+    <ion-tabs style="
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100%;
-    "
-  >
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button routerLink="menu/home">
-        <ion-icon name="home-outline"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button routerLink="menu/search-user">
-        <ion-icon name="search-outline"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button routerLink="add-post-modal" (click)="addPost()">
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button routerLink="menu/account">
-        <ion-icon name="person-outline"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
+    ">
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button routerLink="menu/home">
+          <ion-icon name="home-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button routerLink="menu/search-user">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button routerLink="add-post-modal" (click)="addPost()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button routerLink="menu/account">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-footer>
   <ion-router-outlet></ion-router-outlet>
 </ion-content>

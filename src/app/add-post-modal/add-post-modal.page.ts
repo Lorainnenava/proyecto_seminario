@@ -23,6 +23,12 @@ export class AddPostModalPage implements OnInit {
   post_image: any;
   addPostForm: FormGroup;
 
+  public state = {
+    isLoading: false,
+    errorMessage: '',
+    isError: false,
+  };
+
   constructor(
     private storage: Storage,
     private formBuilder: FormBuilder,
@@ -39,7 +45,7 @@ export class AddPostModalPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   getFirstErrorMessage(controlName: string): string {
     return this.errorMessageService.getFirstErrorMessage(
@@ -68,6 +74,7 @@ export class AddPostModalPage implements OnInit {
   async addPost(post_data: any) {
     console.log('Add Post');
     console.log(post_data);
+    this.state.isLoading = true
     const user = await this.storage.get('user');
     const post_param = {
       post: {
@@ -79,6 +86,7 @@ export class AddPostModalPage implements OnInit {
     console.log(post_param, 'post para enviar');
     this.postService.createPost(post_param).then(
       (data: any) => {
+        this.state.isLoading = false
         console.log(data, 'post creado');
         data.user = {
           id: user.id,
@@ -91,6 +99,9 @@ export class AddPostModalPage implements OnInit {
         this.modalController.dismiss();
       },
       (error) => {
+        this.state.isError = true
+        this.state.errorMessage = error
+        this.state.isLoading = false
         console.log(error, 'error');
       }
     );

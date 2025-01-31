@@ -71,7 +71,7 @@ export class SearchUserPage implements OnInit {
           if (user.id == followee_id) {
             return {
               ...user,
-              is_following: true,
+              c: true,
             };
           }
           return user;
@@ -93,7 +93,7 @@ export class SearchUserPage implements OnInit {
           if (user.id == followee_id) {
             return {
               ...user,
-              isFollowing: false,
+              is_following: false,
             };
           }
           return user;
@@ -106,9 +106,9 @@ export class SearchUserPage implements OnInit {
 
   toggleFollow(user: any) {
     if (user.is_following) {
-      this.follow(user.id);
-    } else {
       this.unfollow(user.id);
+    } else {
+      this.follow(user.id);
     }
   }
 }

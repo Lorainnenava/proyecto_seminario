@@ -34,11 +34,14 @@ export class AccountPage implements OnInit {
     private postService: PostService,
     public alertController: AlertController,
     private modalController: ModalController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getUser();
     this.loadPosts();
+    this.userService.userGot.subscribe((data: any) => {
+      this.user_data.unshift(data);
+    });
   }
 
   async getUser() {
@@ -78,7 +81,6 @@ export class AccountPage implements OnInit {
     this.postService.getPosts(this.page, this.limit).then(
       (data: any) => {
         if (data.length > 0) {
-          // const filterData= data.filter(x=> x.user.name === user.name)
           const filterData = data.filter((x: any) => x.user.id === user.id);
           this.posts = [...this.posts, ...filterData];
           this.page++;

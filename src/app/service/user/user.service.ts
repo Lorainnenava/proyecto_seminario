@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,9 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) {}
+  userGot: EventEmitter<any> = new EventEmitter();
+
+  constructor(private http: HttpClient) { }
 
   getUser(id: any) {
     return new Promise((accept, reject) => {
@@ -46,6 +48,7 @@ export class UserService {
         .subscribe(
           (data: any) => {
             accept(data);
+            this.userGot.emit(data);
           },
           (error) => {
             console.log(error, 'error');
