@@ -21,6 +21,7 @@ export class UserService {
         .subscribe(
           (data: any) => {
             accept(data);
+            this.userGot.emit(data);
           },
           (error) => {
             console.log(error, 'error');
@@ -48,7 +49,11 @@ export class UserService {
         .subscribe(
           (data: any) => {
             accept(data);
+<<<<<<< HEAD
+            this.userUpdated.emit(data);
+=======
             this.userGot.emit(data);
+>>>>>>> c4fa49e82fcdc067fb24b02e477f710427146cd7
           },
           (error) => {
             console.log(error, 'error');
@@ -63,8 +68,17 @@ export class UserService {
   }
 
   listUsers(page: number, perPage: number, query: string = '') {
-    const url = `${this.urlServer}/list_users?page=${page}&per_page=${perPage}&query=${query}`;
-    return this.http.get(url).toPromise();
+    return new Promise((accept, reject) => {
+      this.http
+        .get(
+          `${this.urlServer}/list_users?page=${page}&per_page=${perPage}&query=${query}`
+        ).subscribe(
+          (data: any) => {
+            accept(data);
+            this.usersGot.emit(data);
+          }
+        ),
+    })
   }
 
   followUser(user_id: any, followee_id: any) {
