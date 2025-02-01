@@ -26,17 +26,7 @@
       </ion-card-header>
       <img src="{{post.image}}" class="image-post" />
       <ion-card-content>
-        <p
-          [ngClass]="(!post.showCompleteDescription) ? 'single-line-text' : 'full-text'"
-        >
-          {{post.description}}
-        </p>
-        <p
-          *ngIf="post.description.length > 50"
-          (click)="toggleTextDisplay(post.id)"
-        >
-          Ver {{(!post.showCompleteDescription) ? 'más' : 'menos'}}
-        </p>
+        <p>{{post.description}}</p>
       </ion-card-content>
     </ion-card>
   </ion-list>

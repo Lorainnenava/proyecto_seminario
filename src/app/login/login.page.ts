@@ -20,7 +20,6 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
   public state = {
-    disabled: false,
     isLoading: false,
     errorMessage: '',
     isError: false,
@@ -55,21 +54,18 @@ export class LoginPage implements OnInit {
   }
 
   onSubmit(credentials: any) {
-    this.state.disabled = true;
     this.state.isLoading = true;
     this.authService
       .login(credentials)
       .then((res: any) => {
         this.storage.set('user', res.user);
         this.storage.set('isUserLoggedIn', true);
-        this.nav.navigateForward('/menu/home');
+        this.nav.navigateRoot('/menu/home');
       })
       .catch((err) => {
         this.state.errorMessage = err;
         this.state.isError = true;
-        this.state.disabled = false;
         this.state.isLoading = false;
-        console.log(err);
         setTimeout(() => {
           this.state.isError = false;
         }, 2000);

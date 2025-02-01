@@ -16,6 +16,11 @@ export class SearchUserPage implements OnInit {
   query: string = '';
   hasHoreUsers: boolean = true;
 
+  public state = {
+    errorMessage: '',
+    isError: false,
+  };
+
   constructor(private userService: UserService, private storage: Storage) {}
 
   ngOnInit() {
@@ -25,7 +30,6 @@ export class SearchUserPage implements OnInit {
   async loadUsers(event?: any) {
     this.current_user = await this.storage.get('user');
     const followingUsers = this.current_user.followees || [];
-    console.log('followingUsers', followingUsers);
     this.userService
       .listUsers(this.page, this.limit, this.query)
       .then((data: any) => {
@@ -37,7 +41,6 @@ export class SearchUserPage implements OnInit {
             ),
           }));
           this.users = [...this.users, ...updateUsers];
-          console.log('users', this.users);
           this.page++;
         } else {
           this.hasHoreUsers = false;
@@ -47,7 +50,11 @@ export class SearchUserPage implements OnInit {
         }
       })
       .catch((error) => {
-        console.log(error);
+        this.state.errorMessage = error;
+        this.state.isError = true;
+        setTimeout(() => {
+          this.state.isError = false;
+        }, 2000);
         event.target.complete();
       });
   }
@@ -61,7 +68,6 @@ export class SearchUserPage implements OnInit {
   }
 
   follow(followee_id: any) {
-    console.log('follow', followee_id);
     const user_id = this.current_user.id;
     this.userService
       .followUser(user_id, followee_id)
@@ -78,13 +84,16 @@ export class SearchUserPage implements OnInit {
         });
       })
       .catch((error) => {
-        console.log(error);
+        this.state.errorMessage = error;
+        this.state.isError = true;
+        setTimeout(() => {
+          this.state.isError = false;
+        }, 2000);
       });
   }
 
   unfollow(followee_id: any) {
     const user_id = this.current_user.id;
-    console.log(followee_id, 'followee_id');
     this.userService
       .unfollowUser(user_id, followee_id)
       .then((data: any) => {
@@ -93,22 +102,26 @@ export class SearchUserPage implements OnInit {
           if (user.id == followee_id) {
             return {
               ...user,
-              isFollowing: false,
+              is_following: false,
             };
           }
           return user;
         });
       })
       .catch((error) => {
-        console.log(error);
+        this.state.errorMessage = error;
+        this.state.isError = true;
+        setTimeout(() => {
+          this.state.isError = false;
+        }, 2000);
       });
   }
 
   toggleFollow(user: any) {
     if (user.is_following) {
-      this.follow(user.id);
-    } else {
       this.unfollow(user.id);
+    } else {
+      this.follow(user.id);
     }
   }
 }

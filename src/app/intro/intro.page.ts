@@ -14,7 +14,6 @@ export class IntroPage implements OnInit {
   async ngOnInit() {}
 
   finish() {
-    console.log('finish');
     this.storage.set('vilaIntro', true);
     this.router.navigateByUrl('/login');
   }

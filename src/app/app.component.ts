@@ -17,9 +17,4 @@ export class AppComponent {
   async ngOnInit() {
     await this.storage.create();
   }
-
-  shouldShowTabs(): boolean {
-    const hiddenRoutes = [, '/intro', '/login', '/register'];
-    return !hiddenRoutes.includes(this.router.url);
-  }
 }

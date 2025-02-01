@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar style="text-align: center">
+  <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button (click)="cancel()">
+      <ion-button (click)="cancel()" [disabled]="state.isLoading">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -37,6 +37,7 @@
             fill="outline"
             style="--border-color: #608bc1; --color: #608bc1"
             (click)="presentPhotoOptions()"
+            [disabled]="state.isLoading"
             ><ion-icon slot="start" name="image-outline"></ion-icon>Actualizar
             foto</ion-chip
           >
@@ -86,6 +87,7 @@
         </ion-col>
       </ion-row>
       <ion-toast
+        color="danger"
         [isOpen]="state.isError"
         [message]="state.errorMessage"
         [duration]="2000"

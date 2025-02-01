@@ -9,10 +9,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, FooterComponent],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

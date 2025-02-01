@@ -61,9 +61,19 @@ h1 {
   margin-bottom: 30px;
 }
 
-.header {
-  color: #608bc1;
-  text-align: center;
+ion-header {
+  ion-toolbar {
+    --background: #608bc1;
+    border: none;
+    text-align: center;
+
+    ion-buttons {
+      color: var(--ion-color-light);
+    }
+  }
+  ion-title {
+    color: white;
+  }
 }
 
 .footer-info {

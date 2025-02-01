@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { ErrorMessageService } from 'src/utils/service/errorMessage/error-message.service';
 import { AuthService } from '../service/auth/auth.service';
 
@@ -14,7 +14,6 @@ export class RegisterPage implements OnInit {
   registerForm: FormGroup;
 
   public state = {
-    disabled: false,
     isLoading: false,
     errorMessage: '',
     isError: false,
@@ -24,7 +23,6 @@ export class RegisterPage implements OnInit {
     private form: FormBuilder,
     private navCtrl: NavController,
     private authService: AuthService,
-    private modalController: ModalController,
     private errorMessageService: ErrorMessageService
   ) {
     this.registerForm = this.form.group({
@@ -33,7 +31,7 @@ export class RegisterPage implements OnInit {
       last_name: ['', [Validators.required]],
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      passwordConfirmation: [
+      password_confirmation: [
         '',
         [Validators.required, Validators.minLength(6)],
       ],
@@ -43,7 +41,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
 
   cancel() {
-    this.modalController.dismiss();
+    this.navCtrl.navigateRoot('/login', { animated: false });
   }
 
   getFirstErrorMessage(controlName: string): string {
@@ -54,7 +52,6 @@ export class RegisterPage implements OnInit {
   }
 
   registerUser(registerData: any) {
-    this.state.disabled = true;
     this.state.isLoading = true;
     this.authService
       .register(registerData)
@@ -65,9 +62,7 @@ export class RegisterPage implements OnInit {
       .catch((err) => {
         this.state.errorMessage = err;
         this.state.isError = true;
-        this.state.disabled = false;
         this.state.isLoading = false;
-        console.log(err);
         setTimeout(() => {
           this.state.isError = false;
         }, 2000);

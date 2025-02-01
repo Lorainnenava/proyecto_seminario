@@ -22,23 +22,13 @@ export class HomePage {
   ) {}
 
   ngOnInit() {
-    console.log('Init Home');
     this.loadPosts();
     this.postService.postCreated.subscribe((newPost: any) => {
       this.posts.unshift(newPost);
     });
   }
 
-  toggleTextDisplay(postId: any) {
-    this.posts.filter((post: any) => {
-      if (post.id == postId) {
-        post.showCompleteDescription = !post.showCompleteDescription;
-      }
-    });
-  }
-
   async addPost() {
-    console.log('Add Post');
     const modal = await this.modalController.create({
       component: AddPostModalPage,
       componentProps: {},
@@ -47,12 +37,10 @@ export class HomePage {
   }
 
   loadPosts(event?: any) {
-    console.log('Load Posts');
     this.isLoading = true;
     this.postService.getPosts(this.page, this.limit).then(
       (data: any) => {
         if (data.length > 0) {
-          console.log(data, 'data');
           this.posts = [...this.posts, ...data];
           this.page++;
         } else {

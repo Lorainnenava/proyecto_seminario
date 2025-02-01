@@ -7,7 +7,7 @@
 ion-fab {
   ion-fab-button {
     --background: #f4f4f4;
-    --color: red;
+    --color: #608bc1;
   }
 }
 
@@ -32,6 +32,7 @@ ion-header {
   ion-toolbar {
     --background: #608bc1;
     border: none;
+    text-align: center;
 
     ion-buttons {
       color: var(--ion-color-light);
@@ -65,4 +66,14 @@ ion-card:hover {
   font-size: 16px;
   align-items: center;
   justify-content: flex-start;
+}
+
+.single-line-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.full-text {
+  white-space: normal;
 }

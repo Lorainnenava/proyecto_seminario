@@ -9,8 +9,8 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ModalController } from '@ionic/angular';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { Storage } from '@ionic/storage-angular';
-import { PostService } from '../service/post/post.service';
 import { ErrorMessageService } from 'src/utils/service/errorMessage/error-message.service';
+import { PostService } from '../service/post/post.service';
 
 defineCustomElements(window);
 @Component({
@@ -22,6 +22,12 @@ defineCustomElements(window);
 export class AddPostModalPage implements OnInit {
   post_image: any;
   addPostForm: FormGroup;
+
+  public state = {
+    isLoading: false,
+    errorMessage: '',
+    isError: false,
+  };
 
   constructor(
     private storage: Storage,
@@ -53,7 +59,6 @@ export class AddPostModalPage implements OnInit {
   }
 
   async uploadPhone() {
-    console.log('Upload Photo');
     const uploadPhoto = await Camera.getPhoto({
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Photos,
@@ -66,8 +71,7 @@ export class AddPostModalPage implements OnInit {
   }
 
   async addPost(post_data: any) {
-    console.log('Add Post');
-    console.log(post_data);
+    this.state.isLoading = true;
     const user = await this.storage.get('user');
     const post_param = {
       post: {
@@ -76,10 +80,8 @@ export class AddPostModalPage implements OnInit {
         user_id: user.id,
       },
     };
-    console.log(post_param, 'post para enviar');
     this.postService.createPost(post_param).then(
       (data: any) => {
-        console.log(data, 'post creado');
         data.user = {
           id: user.id,
           name: user.name,
@@ -91,7 +93,12 @@ export class AddPostModalPage implements OnInit {
         this.modalController.dismiss();
       },
       (error) => {
-        console.log(error, 'error');
+        this.state.errorMessage = error;
+        this.state.isError = true;
+        this.state.isLoading = false;
+        setTimeout(() => {
+          this.state.isError = false;
+        }, 2000);
       }
     );
   }

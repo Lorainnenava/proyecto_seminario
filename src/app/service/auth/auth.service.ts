@@ -24,7 +24,6 @@ export class AuthService {
         .post(`${this.urlServer}/login`, params, this.httpHeaders)
         .subscribe(
           (data: any) => {
-            console.log(data);
             if (data.status == 'OK') {
               accept(data);
             } else {
@@ -32,7 +31,6 @@ export class AuthService {
             }
           },
           (error) => {
-            console.log(error);
             if (error.status == 422) {
               reject('Usuario o contraseña incorrectos');
             } else if (error.status == 500) {
@@ -61,7 +59,6 @@ export class AuthService {
         .post(`${this.urlServer}/signup`, params, this.httpHeaders)
         .subscribe(
           (data: any) => {
-            console.log(data);
             if (data.status == 'OK') {
               accept(data);
             } else {
@@ -69,7 +66,6 @@ export class AuthService {
             }
           },
           (error) => {
-            console.log(error);
             if (error.status == 422) {
               reject(error.error.errors);
             } else if (error.status == 500) {

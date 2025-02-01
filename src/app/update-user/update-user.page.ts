@@ -67,7 +67,12 @@ export class UpdateUserPage implements OnInit {
         });
       })
       .catch((error) => {
-        console.log(error);
+        this.state.errorMessage = error;
+        this.state.isError = true;
+        this.state.isLoading = false;
+        setTimeout(() => {
+          this.state.isError = false;
+        }, 2000);
       });
   }
 
@@ -91,12 +96,11 @@ export class UpdateUserPage implements OnInit {
       id: user.id,
       name: formValues.name,
       last_name: formValues.last_name,
-      image: formValues.image,
+      image: this.user_data.image,
     };
     this.userService
       .updateUser(data)
       .then((res: any) => {
-        console.log(res);
         this.storage.set('user', res.user);
         this.navCtrl.navigateRoot('/menu/account');
         this.modalController.dismiss();
@@ -105,7 +109,6 @@ export class UpdateUserPage implements OnInit {
         this.state.errorMessage = err;
         this.state.isError = true;
         this.state.isLoading = false;
-        console.log(err);
         setTimeout(() => {
           this.state.isError = false;
         }, 2000);
@@ -113,15 +116,12 @@ export class UpdateUserPage implements OnInit {
   }
 
   async takePhoto(source: CameraSource) {
-    console.log('Take Photo');
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.DataUrl,
       source: source,
       quality: 100,
     });
-    console.log(capturedPhoto.dataUrl);
     this.user_data.image = capturedPhoto.dataUrl;
-    this.update();
   }
 
   async presentPhotoOptions() {

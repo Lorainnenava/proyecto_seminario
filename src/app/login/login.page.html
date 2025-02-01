@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="header">
+  <ion-toolbar>
     <ion-title>Inicio de Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -27,7 +27,7 @@
             fill="outline"
             formControlName="email"
             labelPlacement="floating"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
@@ -44,7 +44,7 @@
             label="Password"
             labelPlacement="floating"
             formControlName="password"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           >
           </ion-input>
           <ion-label
@@ -60,7 +60,7 @@
             type="submit"
             expand="block"
             style="--background: #608bc1"
-            [disabled]="!loginForm.valid || state.disabled || state.isLoading"
+            [disabled]="!loginForm.valid || state.isLoading"
             >Iniciar sesión</ion-button
           >
         </ion-col>
@@ -70,14 +70,15 @@
             <a
               href="/register"
               style="font-size: 14px; text-decoration: none"
-              [ngClass]="{ 'disabled-link': state.disabled || state.isLoading }"
-              (click)="(state.disabled || state.isLoading) ? $event.preventDefault() : null"
+              [ngClass]="{ 'disabled-link': state.isLoading }"
+              (click)="(state.isLoading) ? $event.preventDefault() : null"
               >Regístrate</a
             ></ion-container
           ></ion-col
         >
       </ion-row>
       <ion-toast
+        color="danger"
         [isOpen]="state.isError"
         [message]="state.errorMessage"
         [duration]="2000"

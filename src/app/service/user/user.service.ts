@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -9,6 +9,8 @@ export class UserService {
   httpHeaders = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+
+  userGot: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +23,6 @@ export class UserService {
             accept(data);
           },
           (error) => {
-            console.log(error, 'error');
             if (error.status == 500) {
               reject('Error Por favor intenta mas tarde');
             } else {
@@ -46,9 +47,9 @@ export class UserService {
         .subscribe(
           (data: any) => {
             accept(data);
+            this.userGot.emit(data);
           },
           (error) => {
-            console.log(error, 'error');
             if (error.status == 500) {
               reject('Error Por favor intenta mas tarde');
             } else {
@@ -80,7 +81,6 @@ export class UserService {
             accept(data);
           },
           (error) => {
-            console.log(error, 'error');
             if (error.status == 500) {
               reject('Error Por favor intenta mas tarde');
             } else {
@@ -107,7 +107,6 @@ export class UserService {
             accept(data);
           },
           (error) => {
-            console.log(error, 'error');
             if (error.status == 500) {
               reject('Error Por favor intenta mas tarde');
             } else {

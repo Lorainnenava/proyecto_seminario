@@ -26,7 +26,6 @@ export class PostService {
             accept(data);
           },
           (error) => {
-            console.log(error, 'error');
             if (error.status == 500) {
               reject('Error Por favor intenta mas tarde');
             } else {
@@ -47,7 +46,6 @@ export class PostService {
             this.postCreated.emit(data);
           },
           (error) => {
-            console.log(error, 'error');
             if (error.status == 500) {
               reject('Error Por favor intenta mas tarde');
             } else {

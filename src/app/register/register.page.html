@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar style="text-align: center">
+  <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button (click)="cancel()">
+      <ion-button (click)="cancel()" [disabled]="state.isLoading">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,7 +23,7 @@
             fill="outline"
             formControlName="email"
             labelPlacement="floating"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
@@ -40,7 +40,7 @@
             fill="outline"
             formControlName="name"
             labelPlacement="floating"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
@@ -57,7 +57,7 @@
             fill="outline"
             formControlName="last_name"
             labelPlacement="floating"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
@@ -74,7 +74,7 @@
             fill="outline"
             formControlName="username"
             labelPlacement="floating"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           ></ion-input>
           <ion-label
             style="font-size: 12px"
@@ -91,7 +91,7 @@
             label="Contraseña"
             labelPlacement="floating"
             formControlName="password"
-            [disabled]="state.disabled || state.isLoading"
+            [disabled]="state.isLoading"
           >
           </ion-input>
           <ion-label
@@ -108,17 +108,17 @@
             type="password"
             label="Confirmación de contraseña"
             labelPlacement="floating"
-            formControlName="passwordConfirmation"
-            [disabled]="state.disabled || state.isLoading"
+            formControlName="password_confirmation"
+            [disabled]="state.isLoading"
           >
           </ion-input>
           <ion-label
             style="font-size: 12px"
             color="danger"
-            *ngIf="(registerForm.get('passwordConfirmation')?.hasError && registerForm.get('passwordConfirmation')?.dirty)"
+            *ngIf="(registerForm.get('password_confirmation')?.hasError && registerForm.get('password_confirmation')?.dirty)"
           >
             <ng-container
-              >{{ getFirstErrorMessage('passwordConfirmation') }}</ng-container
+              >{{ getFirstErrorMessage('password_confirmation') }}</ng-container
             >
           </ion-label>
         </ion-col>
@@ -127,12 +127,13 @@
             type="submit"
             expand="block"
             style="--background: #608bc1"
-            [disabled]="!registerForm.valid || state.disabled || state.isLoading"
+            [disabled]="!registerForm.valid || state.isLoading"
             >Registrarse</ion-button
           >
         </ion-col>
       </ion-row>
       <ion-toast
+        color="danger"
         [isOpen]="state.isError"
         [message]="state.errorMessage"
         [duration]="2000"

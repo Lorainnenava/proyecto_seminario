@@ -4,26 +4,26 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <div style="width: 60%">
-      <ion-title style="text-align: end; font-size: 14px"
-        >{{user_data.username}}</ion-title
-      >
+      <ion-title style="text-align: end; font-size: 16px">Mi perfil</ion-title>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="loading" *ngIf="state.isLoading">
+  <img src="../../assets/images/loading.png" />
+  <ion-text class="container-info">Cargando posts....</ion-text>
+</ion-content>
+<ion-content *ngIf="!state.isLoading">
   <ion-grid class="custom-content">
     <!-- Sección fija -->
     <div class="fixed-info">
       <ion-row>
         <ion-col size="12" class="content-info">
-          <ion-avatar>
-            <div class="content-image2">
-              <img
-                [src]="user_data.image ? user_data.image : 'assets/images/avatar.png'"
-                style="width: 100%; height: 100%"
-              />
-            </div>
+          <ion-avatar style="width: 100px; height: 85px">
+            <img
+              [src]="user_data.image ? user_data.image : 'assets/images/avatar.png'"
+              style="width: 100%; height: 100%"
+            />
           </ion-avatar>
           <ion-title style="font-size: 16px"
             >{{user_data.name}} {{user_data.last_name}}</ion-title
@@ -31,13 +31,16 @@
         </ion-col>
       </ion-row>
       <ion-row size="12">
-        <ion-chip color="secondary">Posts: 0</ion-chip>
-        <ion-chip color="secondary"
-          >Seguidores: {{user_data.followers.length}}</ion-chip
-        >
-        <ion-chip color="secondary"
-          >Siguiendo: {{user_data.followees.length}}</ion-chip
-        >
+        <ion-col size="6">
+          <ion-chip color="secondary" style="width: 100%"
+            >Seguidores: {{user_data.followers.length}}</ion-chip
+          >
+        </ion-col>
+        <ion-col size="6">
+          <ion-chip color="secondary" style="width: 100%"
+            >Siguiendo: {{user_data.followees.length}}</ion-chip
+          >
+        </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
@@ -59,54 +62,12 @@
       </ion-row>
     </div>
 
-    <!-- Sección con scroll (solo publicaciones) -->
-    <div class="scrollable-content">
-      <ion-col size="12" class="no-posts" *ngIf="posts.length === 0">
-        <ion-text style="font-size: 16px">No hay posts aun</ion-text>
-      </ion-col>
-
-      <ion-col size="12" *ngIf="posts.length > 0">
-        <ion-list>
-          <ion-card *ngFor="let post of posts">
-            <ion-card-header>
-              <ion-card-subtitle class="container-info">
-                <ion-avatar class="user-avatar">
-                  <img
-                    [src]="post.user.image ? post.user.image : 'assets/images/avatar.png'"
-                  />
-                </ion-avatar>
-                {{post.user.name}}
-              </ion-card-subtitle>
-            </ion-card-header>
-            <img src="{{post.image}}" class="image-post" />
-            <ion-card-content>
-              <p
-                [ngClass]="(!post.showCompleteDescription) ? 'single-line-text' : 'full-text'"
-              >
-                {{post.description}}
-              </p>
-              <p
-                *ngIf="post.description.length > 50"
-                (click)="toggleTextDisplay(post.id)"
-              >
-                Ver {{(!post.showCompleteDescription) ? 'más' : 'menos'}}
-              </p>
-            </ion-card-content>
-          </ion-card>
-        </ion-list>
-
-        <ion-infinite-scroll
-          threshold="100px"
-          (ionInfinite)="loadPosts($event)"
-          *ngIf="hasMore"
-        >
-          <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="Cargando más publicaciones..."
-          >
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </ion-col>
-    </div>
+    <ion-toast
+      color="danger"
+      [isOpen]="state.isError"
+      [message]="state.errorMessage"
+      [duration]="2000"
+      (onDidDismiss)="state.isError = false"
+    ></ion-toast>
   </ion-grid>
 </ion-content>
