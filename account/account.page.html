@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div style="width: 60%">
+      <ion-title style="text-align: end; font-size: 16px">Mi perfil</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="loading" *ngIf="state.isLoading">
+  <img src="../../assets/images/loading.png" />
+  <ion-text class="container-info">Cargando posts....</ion-text>
+</ion-content>
+<ion-content *ngIf="!state.isLoading">
+  <ion-grid class="custom-content">
+    <!-- Sección fija -->
+    <div class="fixed-info">
+      <ion-row>
+        <ion-col size="12" class="content-info">
+          <ion-avatar style="width: 100px; height: 85px">
+            <img
+              [src]="user_data.image ? user_data.image : 'assets/images/avatar.png'"
+              style="width: 100%; height: 100%"
+            />
+          </ion-avatar>
+          <ion-title style="font-size: 16px"
+            >{{user_data.name}} {{user_data.last_name}}</ion-title
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row size="12">
+        <ion-col size="6">
+          <ion-chip color="secondary" style="width: 100%"
+            >Seguidores: {{user_data.followers.length}}</ion-chip
+          >
+        </ion-col>
+        <ion-col size="6">
+          <ion-chip color="secondary" style="width: 100%"
+            >Siguiendo: {{user_data.followees.length}}</ion-chip
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button
+            expand="block"
+            style="--border-color: #608bc1; --color: #608bc1"
+            fill="outline"
+            (click)="editProfile()"
+            ><ion-icon slot="start" name="person-outline"></ion-icon>Editar
+            perfil</ion-button
+          >
+        </ion-col>
+        <!-- Mis publicaciones -->
+        <ion-col size="12">
+          <ion-item-divider>
+            <ion-label>Mis publicaciones</ion-label>
+          </ion-item-divider></ion-col
+        >
+      </ion-row>
+    </div>
+
+    <ion-toast
+      color="danger"
+      [isOpen]="state.isError"
+      [message]="state.errorMessage"
+      [duration]="2000"
+      (onDidDismiss)="state.isError = false"
+    ></ion-toast>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inicio de Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ionic-content class="MainContainer">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit(loginForm.value)"
+    class="form-container"
+  >
+    <ion-container class="img-container">
+      <img src="/assets/images/login.png" />
+    </ion-container>
+    <ion-grid class="my-container">
+      <ion-container class="ion-hide-md-down">
+        <ion-title>
+          <h1>Bienvenido a esta comunidad dev!!</h1>
+        </ion-title>
+      </ion-container>
+      <ion-row style="gap: 10px; padding: 20px">
+        <ion-col size="12" class="input-container">
+          <ion-input
+            type="text"
+            label="Correo"
+            fill="outline"
+            formControlName="email"
+            labelPlacement="floating"
+            [disabled]="state.isLoading"
+          ></ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(loginForm.get('email')?.hasError && loginForm.get('email')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('email') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            fill="outline"
+            type="password"
+            label="Password"
+            labelPlacement="floating"
+            formControlName="password"
+            [disabled]="state.isLoading"
+          >
+          </ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(loginForm.get('password')?.hasError && loginForm.get('password')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('password') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button
+            type="submit"
+            expand="block"
+            style="--background: #608bc1"
+            [disabled]="!loginForm.valid || state.isLoading"
+            >Iniciar sesión</ion-button
+          >
+        </ion-col>
+        <ion-col size="12">
+          <ion-container class="footer-info">
+            <ion-text style="font-size: 14px">No tienes cuenta aun?</ion-text>
+            <a
+              href="/register"
+              style="font-size: 14px; text-decoration: none"
+              [ngClass]="{ 'disabled-link': state.isLoading }"
+              (click)="(state.isLoading) ? $event.preventDefault() : null"
+              >Regístrate</a
+            ></ion-container
+          ></ion-col
+        >
+      </ion-row>
+      <ion-toast
+        color="danger"
+        [isOpen]="state.isError"
+        [message]="state.errorMessage"
+        [duration]="2000"
+        (onDidDismiss)="state.isError = false"
+      ></ion-toast>
+    </ion-grid>
+  </form>
+</ionic-content>

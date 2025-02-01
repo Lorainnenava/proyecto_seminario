@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-text style="font-size: 16px">Menu</ion-text>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="loading" *ngIf="posts.length === 0">
+  <img src="../../assets/images/loading.png" />
+  <ion-text class="container-info">Cargando posts....</ion-text>
+</ion-content>
+<ion-content *ngIf="posts.length > 0">
+  <ion-list>
+    <ion-card *ngFor="let post of posts">
+      <ion-card-header>
+        <ion-card-subtitle class="container">
+          <ion-avatar class="user-avatar">
+            <img
+              [src]="post.user.image ? post.user.image : 'assets/images/avatar.png'"
+            />
+          </ion-avatar>
+          {{post.user.name}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <img src="{{post.image}}" class="image-post" />
+      <ion-card-content>
+        <p>{{post.description}}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadPosts($event)"
+    *ngIf="hasMore"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando más publicaciones..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addPost()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

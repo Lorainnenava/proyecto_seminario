@@ -1,0 +1,73 @@
+<ion-content>
+  <swiper-container slides-per-view="1" pagination="true">
+    <!-- Primera pantalla -->
+    <swiper-slide>
+      <ion-container class="container-skip">
+        <ion-button size="small" fill="clear" (click)="finish()">
+          Skip</ion-button
+        >
+      </ion-container>
+      <ion-container class="container-text">
+        <h2>Bienvenido</h2>
+      </ion-container>
+      <ion-container class="container-image">
+        <img src="/assets/images/logotipo.png" class="slide-image" />
+      </ion-container>
+      <ion-container class="container-last-text">
+        <ion-text>
+          <h6>
+            Conoce a programadores de todo el mundo, comparte ideas, colabora en
+            proyectos y aprende juntos.
+          </h6>
+        </ion-text>
+      </ion-container>
+    </swiper-slide>
+    <!-- Segunda pantalla -->
+    <swiper-slide>
+      <ion-container class="container-skip">
+        <ion-button size="small" fill="clear" (click)="finish()">
+          Skip</ion-button
+        >
+      </ion-container>
+      <ion-container class="container-text">
+        <h2>¿Por qué unirte a DevTalk?</h2>
+      </ion-container>
+      <ion-container class="container-image">
+        <img src="/assets/images/intro2.png" class="slide-image" />
+      </ion-container>
+      <ion-container class="container-last-text">
+        <ion-text>
+          <h6>
+            Una comunidad creada para programadores. Comparte código, aprende y
+            mantente actualizado con lo último en tecnología.
+          </h6>
+        </ion-text>
+      </ion-container>
+    </swiper-slide>
+    <!-- Tercera pantalla -->
+    <swiper-slide>
+      <ion-container class="container-skip">
+        <ion-button size="small" fill="clear" (click)="finish()">
+          Skip</ion-button
+        >
+      </ion-container>
+      <ion-container class="container-text">
+        <h2>¿Listo para empezar?</h2>
+      </ion-container>
+      <ion-container class="container-image">
+        <img src="/assets/images/intro3.png" class="slide-image" />
+      </ion-container>
+      <ion-container class="container-last-text">
+        <ion-text>
+          <h6>
+            Únete a nuestra comunidad.<br />
+            Construyamos el futuro, juntos.
+          </h6>
+        </ion-text>
+        <ion-button expand="block" (click)="finish()" class="button-empezar"
+          >Empezar<ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+        ></ion-button>
+      </ion-container>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

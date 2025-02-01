@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="cancel()" [disabled]="state.isLoading">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ionic-content class="MainContainer" fullscreen>
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="registerUser(registerForm.value)"
+  >
+    <ion-grid>
+      <ion-row style="gap: 16px; padding: 20px">
+        <ion-col size="12" class="input-container">
+          <ion-input
+            type="text"
+            label="Correo"
+            fill="outline"
+            formControlName="email"
+            labelPlacement="floating"
+            [disabled]="state.isLoading"
+          ></ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('email')?.hasError && registerForm.get('email')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('email') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            type="text"
+            label="Nombre"
+            fill="outline"
+            formControlName="name"
+            labelPlacement="floating"
+            [disabled]="state.isLoading"
+          ></ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('name')?.hasError && registerForm.get('name')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('name') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            type="text"
+            label="Apellido"
+            fill="outline"
+            formControlName="last_name"
+            labelPlacement="floating"
+            [disabled]="state.isLoading"
+          ></ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('last_name')?.hasError && registerForm.get('last_name')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('last_name') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            type="text"
+            label="Nombre de usuario"
+            fill="outline"
+            formControlName="username"
+            labelPlacement="floating"
+            [disabled]="state.isLoading"
+          ></ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('username')?.hasError && registerForm.get('username')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('username') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            fill="outline"
+            type="password"
+            label="Contraseña"
+            labelPlacement="floating"
+            formControlName="password"
+            [disabled]="state.isLoading"
+          >
+          </ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('password')?.hasError && registerForm.get('password')?.dirty)"
+          >
+            <ng-container>{{ getFirstErrorMessage('password') }}</ng-container>
+          </ion-label>
+        </ion-col>
+        <ion-col size="12" class="input-container">
+          <ion-input
+            fill="outline"
+            type="password"
+            label="Confirmación de contraseña"
+            labelPlacement="floating"
+            formControlName="password_confirmation"
+            [disabled]="state.isLoading"
+          >
+          </ion-input>
+          <ion-label
+            style="font-size: 12px"
+            color="danger"
+            *ngIf="(registerForm.get('password_confirmation')?.hasError && registerForm.get('password_confirmation')?.dirty)"
+          >
+            <ng-container
+              >{{ getFirstErrorMessage('password_confirmation') }}</ng-container
+            >
+          </ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button
+            type="submit"
+            expand="block"
+            style="--background: #608bc1"
+            [disabled]="!registerForm.valid || state.isLoading"
+            >Registrarse</ion-button
+          >
+        </ion-col>
+      </ion-row>
+      <ion-toast
+        color="danger"
+        [isOpen]="state.isError"
+        [message]="state.errorMessage"
+        [duration]="2000"
+        (onDidDismiss)="state.isError = false"
+      ></ion-toast>
+    </ion-grid>
+  </form>
+</ionic-content>
